@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, ReactNode } from 'react';
+import React, { useState, useEffect, useRef, ReactNode, useMemo } from 'react';
 import { 
   Minus, 
   Plus, 
@@ -7,7 +7,9 @@ import {
   Sun,
   Moon,
   Instagram,
-  Linkedin
+  Linkedin,
+  Menu,
+  X
 } from 'lucide-react';
 
 // --- THEME CONFIGURATION ---
@@ -97,6 +99,7 @@ const RevealText: React.FC<RevealTextProps> = ({ children, delay = 0, className 
 export default function PhygoLuxury() {
   const { theme, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -105,6 +108,7 @@ export default function PhygoLuxury() {
   }, []);
 
   const scrollToSection = (id: string) => {
+    setMobileMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
       const offset = 100;
@@ -115,7 +119,7 @@ export default function PhygoLuxury() {
   };
 
   // --- STYLE VARIABLES BASED ON THEME ---
-  const colors = {
+  const colors = useMemo(() => ({
     bgMain: theme === 'dark' ? 'bg-[#050505]' : 'bg-[#F4F7F5]', // Dark Black vs Soft Minty White
     bgSec: theme === 'dark' ? 'bg-[#030303]' : 'bg-white',
     bgTertiary: theme === 'dark' ? 'bg-[#080808]' : 'bg-[#EAF2EE]',
@@ -127,7 +131,7 @@ export default function PhygoLuxury() {
     borderSubtle: theme === 'dark' ? 'border-white/10' : 'border-emerald-900/10',
     gridLine: theme === 'dark' ? 'bg-white/[0.03]' : 'bg-emerald-900/[0.03]',
     navBg: theme === 'dark' ? 'bg-[#050505]/90' : 'bg-[#F4F7F5]/90',
-  };
+  }), [theme]);
 
   return (
     <div className={`min-h-screen font-sans overflow-x-hidden transition-colors duration-700 ${colors.bgMain} ${colors.textMain} selection:${theme === 'dark' ? 'bg-blue-600' : 'bg-emerald-200'} selection:${theme === 'dark' ? 'text-white' : 'text-emerald-900'}`}>
@@ -163,7 +167,10 @@ export default function PhygoLuxury() {
                {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
              </button>
 
-             <button className={`flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider transition-colors ${colors.textMuted} hover:${colors.textMain}`}>
+             <button 
+               className={`hidden sm:flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider transition-colors ${colors.textMuted} hover:${colors.textMain}`}
+               onClick={() => {}} 
+             >
                 <Lock size={14} />
                 <span className="hidden sm:inline">Área do Cliente</span>
              </button>
@@ -172,12 +179,40 @@ export default function PhygoLuxury() {
                href="https://api.whatsapp.com/send/?phone=5512981153079&text=Ol%C3%A1%21+Fiquei+muito+interessado+e+quero+saber+mais%21&type=phone_number&app_absent=0"
                target="_blank"
                rel="noopener noreferrer"
-               className={`relative group overflow-hidden px-6 py-2 border rounded-full bg-transparent transition-colors duration-300 inline-block text-center no-underline ${theme === 'dark' ? 'border-white/20 hover:border-blue-600' : 'border-emerald-900/20 hover:border-emerald-700'}`}
+               className={`hidden sm:inline-block relative group overflow-hidden px-6 py-2 border rounded-full bg-transparent transition-colors duration-300 text-center no-underline ${theme === 'dark' ? 'border-white/20 hover:border-blue-600' : 'border-emerald-900/20 hover:border-emerald-700'}`}
              >
                <span className={`relative z-10 text-xs font-bold uppercase tracking-wider transition-colors ${theme === 'dark' ? 'group-hover:text-blue-500' : 'group-hover:text-emerald-700'}`}>Seja Cliente</span>
              </a>
+
+             <button 
+                className="md:hidden p-2 text-current"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+             >
+               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+             </button>
           </div>
         </div>
+
+        {/* MOBILE MENU */}
+        {mobileMenuOpen && (
+          <div className={`md:hidden absolute top-full left-0 w-full h-screen ${colors.bgMain} border-t ${colors.borderSubtle} p-6 flex flex-col gap-6 animate-in slide-in-from-top-10 fade-in`}>
+             <NavLink theme={theme} onClick={() => scrollToSection('quem-somos')}>Quem Somos</NavLink>
+             <NavLink theme={theme} onClick={() => scrollToSection('metodologia')}>Metodologia</NavLink>
+             <NavLink theme={theme} onClick={() => scrollToSection('solucoes')}>Soluções</NavLink>
+             <div className={`h-px w-full ${colors.borderSubtle}`} />
+             <button className={`flex items-center gap-2 text-xs font-bold uppercase tracking-wider ${colors.textMain}`}>
+                <Lock size={14} /> Área do Cliente
+             </button>
+             <a 
+               href="https://api.whatsapp.com/send/?phone=5512981153079&text=Ol%C3%A1%21+Fiquei+muito+interessado+e+quero+saber+mais%21&type=phone_number&app_absent=0"
+               target="_blank"
+               rel="noopener noreferrer"
+               className={`text-center py-4 border rounded-full ${theme === 'dark' ? 'border-white/20' : 'border-emerald-900/20'} ${colors.textMain} font-bold uppercase text-xs`}
+             >
+               Seja Cliente
+             </a>
+          </div>
+        )}
       </nav>
 
       {/* --- HERO SECTION --- */}
@@ -192,7 +227,7 @@ export default function PhygoLuxury() {
           
           <div className="space-y-2">
              <RevealText delay={100}>
-              <h1 className="text-6xl md:text-[7rem] leading-[0.9] font-medium tracking-tight">
+              <h1 className="text-6xl md:text-[7rem] leading-[0.95] font-medium tracking-tight py-4">
                 PATRIMÔNIO <span className={`${theme === 'dark' ? 'text-gray-700' : 'text-emerald-800/40'} italic font-serif`}>refinado</span>
               </h1>
             </RevealText>
