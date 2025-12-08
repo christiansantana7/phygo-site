@@ -9,12 +9,13 @@ import {
   Instagram,
   Linkedin,
   Menu,
-  X
+  X,
+  ChevronDown
 } from 'lucide-react';
 
 // --- THEME CONFIGURATION ---
 const useTheme = () => {
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState('light');
   const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
   return { theme, toggleTheme };
 };
@@ -233,7 +234,7 @@ const QualifiedForm: React.FC<QualifiedFormProps> = ({ isOpen, onClose, theme, c
                 />
               </div>
               <div>
-                <label className={`block text-xs uppercase tracking-wider ${colors.textMuted} mb-1`}>E-mail Profissional</label>
+                <label className={`block text-xs uppercase tracking-wider ${colors.textMuted} mb-1`}>E-mail Mais Utilizado</label>
                 <input 
                   type="email" 
                   required
@@ -414,7 +415,9 @@ export default function PhygoLuxury() {
           <div className="hidden md:flex items-center gap-12">
             <NavLink theme={theme} onClick={() => scrollToSection('quem-somos')}>Quem Somos</NavLink>
             <NavLink theme={theme} onClick={() => scrollToSection('metodologia')}>Metodologia</NavLink>
+            <NavLink theme={theme} onClick={() => scrollToSection('equipe')}>Equipe</NavLink>
             <NavLink theme={theme} onClick={() => scrollToSection('solucoes')}>Soluções</NavLink>
+            <NavLink theme={theme} onClick={() => scrollToSection('faq')}>FAQ</NavLink>
           </div>
 
           <div className="flex items-center gap-4">
@@ -454,7 +457,9 @@ export default function PhygoLuxury() {
           <div className={`md:hidden absolute top-full left-0 w-full h-screen ${colors.bgMain} border-t ${colors.borderSubtle} p-6 flex flex-col gap-6 animate-in slide-in-from-top-10 fade-in`}>
              <NavLink theme={theme} onClick={() => scrollToSection('quem-somos')}>Quem Somos</NavLink>
              <NavLink theme={theme} onClick={() => scrollToSection('metodologia')}>Metodologia</NavLink>
+             <NavLink theme={theme} onClick={() => scrollToSection('equipe')}>Equipe</NavLink>
              <NavLink theme={theme} onClick={() => scrollToSection('solucoes')}>Soluções</NavLink>
+             <NavLink theme={theme} onClick={() => scrollToSection('faq')}>FAQ</NavLink>
              <div className={`h-px w-full ${colors.borderSubtle}`} />
              <button className={`flex items-center gap-2 text-xs font-bold uppercase tracking-wider ${colors.textMain}`}>
                 <Lock size={14} /> Área do Cliente
@@ -587,6 +592,78 @@ export default function PhygoLuxury() {
          </div>
       </section>
 
+      {/* --- EQUIPE --- */}
+      <section id="equipe" className={`py-32 px-6 md:px-24 border-t ${colors.borderSubtle} ${colors.bgMain} transition-colors duration-700`}>
+        <div className="max-w-7xl">
+          <RevealText>
+             <h2 className={`text-xs font-bold ${colors.accent} tracking-widest uppercase mb-8 flex items-center gap-3`}>
+                <span className={`w-2 h-2 ${colors.accentBg} rounded-full`}></span>
+                Nossa Equipe
+             </h2>
+          </RevealText>
+          <RevealText delay={100}>
+            <h3 className={`text-4xl md:text-5xl font-light mb-16 leading-tight ${colors.textMain}`}>
+              Quem cuida do <span className={`${colors.textMuted} font-serif italic`}>seu legado.</span>
+            </h3>
+          </RevealText>
+          
+          <div className="mb-16 rounded-xl overflow-hidden border border-white/10 relative group">
+            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
+            <img 
+              src="/team/equipe_geral.jpg" 
+              alt="Equipe Phygo Gestão de Ativos" 
+              className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { 
+                name: 'Maurício', 
+                role: 'Sócio Fundador & Gestor', 
+                desc: 'CGA, CFP®. Especialista em alocação de ativos e gestão de portfólios de alta renda. Top 3 Safra Gestores 2022.',
+                photo: '/team/mauricio.jpg'
+              },
+              { 
+                name: 'Gabriel Madona', 
+                role: 'Sócio Administrativo', 
+                desc: 'Responsável pela diretoria financeira e administrativa, garantindo a solidez operacional da Phygo.',
+                photo: '/team/gabriel.jpg'
+              },
+              { 
+                name: 'Giovanni Mazzuco', 
+                role: 'Comercial', 
+                desc: 'Head de Relacionamento e expansão, focado em oferecer um atendimento personalizado e exclusivo aos clientes.',
+                photo: '/team/giovanni.jpg'
+              },
+              { 
+                name: 'Juliana Hartwig', 
+                role: 'Portfolio Manager', 
+                desc: 'Gestora de portfólios dedicada à estratégia de alocação e monitoramento constante de ativos.',
+                photo: '/team/juliana.jpg'
+              },
+              { 
+                name: 'Christian Santana', 
+                role: 'Portfolio Manager', 
+                desc: 'Gestor focado em performance. Top 18 na competição nacional de traders do BTG Pactual.',
+                photo: '/team/christian.jpg'
+              }
+            ].map((member, idx) => (
+              <div key={idx} className={`group relative overflow-hidden ${theme === 'dark' ? 'bg-white/[0.02]' : 'bg-white shadow-sm'} border ${colors.borderSubtle} p-8 transition-all duration-500 hover:-translate-y-2`}>
+                <div className={`w-24 h-24 mb-6 rounded-full ${colors.bgTertiary} border ${colors.borderSubtle} overflow-hidden`}>
+                   <img src={member.photo} alt={member.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                </div>
+                <h4 className={`text-xl font-bold ${colors.textMain} mb-1`}>{member.name}</h4>
+                <span className={`text-xs uppercase tracking-wider ${colors.accent} mb-4 block`}>{member.role}</span>
+                <p className={`text-sm ${colors.textMuted} leading-relaxed`}>
+                  {member.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* --- METODOLOGIA --- */}
       <section id="metodologia" className={`py-32 px-6 md:px-24 border-y ${colors.borderSubtle} relative ${colors.bgMain} transition-colors duration-700`}>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
@@ -642,6 +719,59 @@ export default function PhygoLuxury() {
             </p>
           </div>
         ))}
+      </section>
+
+      {/* --- FAQ --- */}
+      <section id="faq" className={`py-32 px-6 md:px-24 ${colors.bgMain} transition-colors duration-700`}>
+         <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-16">
+               <h2 className={`text-xs font-bold ${colors.accent} tracking-widest uppercase mb-4`}>Dúvidas Frequentes</h2>
+               <h3 className={`text-3xl md:text-4xl font-light ${colors.textMain}`}>Entenda como trabalhamos</h3>
+            </div>
+
+            <div className="space-y-4">
+               {[
+                 { q: 'Qual o mínimo para investir?', a: 'Para acessar nossas carteiras administradas e serviço de wealth management completo, recomendamos um patrimônio investível a partir de R$ 150.000,00. Contudo, avaliamos cada caso individualmente para propor a melhor solução.' },
+                 { 
+                    q: 'Como funciona a taxa de performance?', 
+                    a: (
+                      <div className="space-y-4">
+                        <p>Nosso modelo é baseado no sucesso do cliente. Cobramos uma taxa de performance apenas sobre o lucro trimestral da carteira. Quanto maior o seu patrimônio sob gestão, menor é a taxa cobrada.</p>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                           <div className={`p-4 rounded border ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-gray-50 border-gray-200'}`}>
+                              <div className="text-xs uppercase tracking-wider opacity-70 mb-1">R$ 150k - R$ 250k</div>
+                              <div className={`text-2xl font-bold ${colors.accent}`}>15%</div>
+                              <div className="text-[10px] opacity-60">sobre o lucro</div>
+                           </div>
+                           <div className={`p-4 rounded border ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-gray-50 border-gray-200'}`}>
+                              <div className="text-xs uppercase tracking-wider opacity-70 mb-1">R$ 250k - R$ 400k</div>
+                              <div className={`text-2xl font-bold ${colors.accent}`}>10%</div>
+                              <div className="text-[10px] opacity-60">sobre o lucro</div>
+                           </div>
+                           <div className={`p-4 rounded border ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-gray-50 border-gray-200'}`}>
+                              <div className="text-xs uppercase tracking-wider opacity-70 mb-1">Acima de R$ 400k</div>
+                              <div className={`text-2xl font-bold ${colors.accent}`}>8%</div>
+                              <div className="text-[10px] opacity-60">sobre o lucro</div>
+                           </div>
+                        </div>
+                      </div>
+                    )
+                 },
+                 { q: 'O dinheiro fica no meu nome?', a: 'Sim. Todo o recurso permanece sob sua titularidade, custodiado em instituições financeiras de primeira linha (como BTG Pactual ou XP Investimentos). A Phygo possui apenas a procuração para realizar a gestão (compra e venda de ativos), sem qualquer poder de saque ou transferência.' },
+                 { q: 'Como acompanho meus investimentos?', a: 'Você terá acesso à área do cliente em nosso portal e também aos aplicativos das corretoras parceiras, garantindo transparência total e em tempo real de todas as movimentações e rentabilidade.' }
+               ].map((item, idx) => (
+                  <details key={idx} className={`group border ${colors.borderSubtle} ${theme === 'dark' ? 'bg-white/[0.02]' : 'bg-white'} rounded-lg overflow-hidden transition-all duration-300`}>
+                     <summary className={`flex justify-between items-center p-6 cursor-pointer list-none ${colors.textMain} font-medium hover:${theme === 'dark' ? 'bg-white/[0.02]' : 'bg-gray-50'}`}>
+                        <span>{item.q}</span>
+                        <ChevronDown className={`transform group-open:rotate-180 transition-transform duration-300 ${colors.textMuted}`} size={20} />
+                     </summary>
+                     <div className={`px-6 pb-6 text-sm ${colors.textMuted} leading-relaxed animate-in slide-in-from-top-2`}>
+                        {item.a}
+                     </div>
+                  </details>
+               ))}
+            </div>
+         </div>
       </section>
 
       {/* --- CTA / FOOTER --- */}
