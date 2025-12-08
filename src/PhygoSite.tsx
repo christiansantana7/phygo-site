@@ -168,9 +168,14 @@ export default function PhygoLuxury() {
                 <span className="hidden sm:inline">Área do Cliente</span>
              </button>
              
-             <button className={`relative group overflow-hidden px-6 py-2 border rounded-full bg-transparent transition-colors duration-300 ${theme === 'dark' ? 'border-white/20 hover:border-blue-600' : 'border-emerald-900/20 hover:border-emerald-700'}`}>
+             <a 
+               href="https://api.whatsapp.com/send/?phone=5512981153079&text=Ol%C3%A1%21+Fiquei+muito+interessado+e+quero+saber+mais%21&type=phone_number&app_absent=0"
+               target="_blank"
+               rel="noopener noreferrer"
+               className={`relative group overflow-hidden px-6 py-2 border rounded-full bg-transparent transition-colors duration-300 inline-block text-center no-underline ${theme === 'dark' ? 'border-white/20 hover:border-blue-600' : 'border-emerald-900/20 hover:border-emerald-700'}`}
+             >
                <span className={`relative z-10 text-xs font-bold uppercase tracking-wider transition-colors ${theme === 'dark' ? 'group-hover:text-blue-500' : 'group-hover:text-emerald-700'}`}>Seja Cliente</span>
-             </button>
+             </a>
           </div>
         </div>
       </nav>
@@ -354,9 +359,14 @@ export default function PhygoLuxury() {
              <h2 className="text-4xl md:text-6xl font-bold mb-8 max-w-2xl leading-tight">
                Pronto para elevar <br/> seu legado financeiro?
              </h2>
-             <button className={`bg-white text-black px-8 py-4 text-sm font-bold uppercase tracking-widest hover:${colors.accentBg} hover:text-white transition-all duration-300 flex items-center gap-4 group ${theme === 'light' ? 'border border-emerald-900/10' : ''}`}>
+             <a 
+               href="https://api.whatsapp.com/send/?phone=5512981153079&text=Ol%C3%A1%21+Fiquei+muito+interessado+e+quero+saber+mais%21&type=phone_number&app_absent=0"
+               target="_blank"
+               rel="noopener noreferrer"
+               className={`bg-white text-black px-8 py-4 text-sm font-bold uppercase tracking-widest hover:${colors.accentBg} hover:text-white transition-all duration-300 flex items-center gap-4 group w-fit ${theme === 'light' ? 'border border-emerald-900/10' : ''}`}
+             >
                Torne-se Cliente <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-             </button>
+             </a>
           </div>
           <div className="mt-12 md:mt-0 text-right">
             <div className={`text-sm ${colors.textMuted} mb-2`}>Escritórios</div>
