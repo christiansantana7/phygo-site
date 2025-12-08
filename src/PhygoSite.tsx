@@ -594,7 +594,7 @@ export default function PhygoLuxury() {
 
       {/* --- EQUIPE --- */}
       <section id="equipe" className={`py-32 px-6 md:px-24 border-t ${colors.borderSubtle} ${colors.bgMain} transition-colors duration-700`}>
-        <div className="max-w-7xl">
+        <div className="max-w-7xl mx-auto">
           <RevealText>
              <h2 className={`text-xs font-bold ${colors.accent} tracking-widest uppercase mb-8 flex items-center gap-3`}>
                 <span className={`w-2 h-2 ${colors.accentBg} rounded-full`}></span>
@@ -607,13 +607,15 @@ export default function PhygoLuxury() {
             </h3>
           </RevealText>
           
-          <div className="mb-16 rounded-xl overflow-hidden border border-white/10 relative group">
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
-            <img 
-              src="/team/equipe_geral.jpg" 
-              alt="Equipe Phygo Gestão de Ativos" 
-              className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0"
-            />
+          <div className="mb-16 relative group flex justify-center items-end w-full h-[400px] md:h-[500px]">
+            <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-black/20 to-transparent z-0 rounded-b-xl" />
+            <div className="w-full h-full flex justify-center items-end">
+              <img 
+                src="/team/equipe_sem_fundo.png" 
+                alt="Equipe Phygo Gestão de Ativos" 
+                className="h-full w-full object-contain object-bottom drop-shadow-2xl z-10 transform group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0"
+              />
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -631,10 +633,10 @@ export default function PhygoLuxury() {
                 photo: '/team/gabriel.jpg'
               },
               { 
-                name: 'Giovanni Mazzuco', 
-                role: 'Comercial', 
-                desc: 'Head de Relacionamento e expansão, focado em oferecer um atendimento personalizado e exclusivo aos clientes.',
-                photo: '/team/giovanni.jpg'
+                name: 'Christian Santana', 
+                role: 'Portfolio Manager', 
+                desc: 'CEA. Especialista em Renda Variável e estratégias de performance. Top 18 na competição nacional de traders do BTG Pactual.',
+                photo: '/team/christian.jpg'
               },
               { 
                 name: 'Juliana Hartwig', 
@@ -643,15 +645,15 @@ export default function PhygoLuxury() {
                 photo: '/team/juliana.jpg'
               },
               { 
-                name: 'Christian Santana', 
-                role: 'Portfolio Manager', 
-                desc: 'Gestor focado em performance. Top 18 na competição nacional de traders do BTG Pactual.',
-                photo: '/team/christian.jpg'
+                name: 'Giovanni Mazzuco', 
+                role: 'Comercial', 
+                desc: 'Focado na expansão da Phygo, captação de novos clientes e gestão de relacionamento de alta performance.',
+                photo: '/team/giovanni.jpg'
               }
             ].map((member, idx) => (
               <div key={idx} className={`group relative overflow-hidden ${theme === 'dark' ? 'bg-white/[0.02]' : 'bg-white shadow-sm'} border ${colors.borderSubtle} p-8 transition-all duration-500 hover:-translate-y-2`}>
                 <div className={`w-24 h-24 mb-6 rounded-full ${colors.bgTertiary} border ${colors.borderSubtle} overflow-hidden`}>
-                   <img src={member.photo} alt={member.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                   <img src={member.photo} alt={member.name} className="w-full h-full object-cover object-[center_15%] grayscale group-hover:grayscale-0 transition-all duration-500" />
                 </div>
                 <h4 className={`text-xl font-bold ${colors.textMain} mb-1`}>{member.name}</h4>
                 <span className={`text-xs uppercase tracking-wider ${colors.accent} mb-4 block`}>{member.role}</span>
