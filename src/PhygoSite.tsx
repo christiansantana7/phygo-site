@@ -411,6 +411,19 @@ export default function PhygoLuxury() {
           </div>
         </div>
 
+        {/* --- DISCLAIMER LEGAL --- */}
+        <div className={`mb-12 text-[10px] leading-relaxed ${colors.textMuted} opacity-70 text-justify border-t ${colors.borderSubtle} pt-8`}>
+            <p className="mb-4">
+              <strong>Aviso Legal:</strong> A Phygo Gestão de Ativos é uma instituição autorizada pela Comissão de Valores Mobiliários (CVM) para o exercício da atividade de administração de carteiras de valores mobiliários. 
+              O investimento em carteiras administradas e ativos financeiros está sujeito a riscos de mercado, incluindo a possibilidade de perda do capital investido e a ausência de garantias por parte do administrador, do gestor ou de mecanismos de seguro.
+            </p>
+            <p>
+              Rentabilidade passada não representa garantia de rentabilidade futura. As informações contidas neste site têm caráter meramente informativo e não constituem oferta pública de valores mobiliários, solicitação de compra ou recomendação personalizada de investimento. 
+              A gestão de carteiras administradas é realizada de acordo com o perfil de risco e objetivos de cada cliente, formalizados em contrato específico.
+              A Phygo não se responsabiliza por decisões de investimento tomadas com base nas informações aqui divulgadas.
+            </p>
+        </div>
+
         <div className={`flex flex-col md:flex-row justify-between items-center pt-8 border-t ${colors.borderSubtle} text-xs ${colors.textMuted} uppercase tracking-wider`}>
           <div className="flex gap-6 mb-4 md:mb-0">
              <span>© 2025 Phygo Gestão de Ativos</span>
