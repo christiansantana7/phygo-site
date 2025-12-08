@@ -13,7 +13,6 @@ import {
 } from 'lucide-react';
 
 // --- THEME CONFIGURATION ---
-// Hook to manage theme state
 const useTheme = () => {
   const [theme, setTheme] = useState('dark');
   const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
@@ -22,12 +21,80 @@ const useTheme = () => {
 
 // --- COMPONENTS ---
 
-// Custom Noise Overlay for texture
 const NoiseOverlay = () => (
   <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.03] mix-blend-overlay"
        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
   />
 );
+
+// --- CUSTOM CURSOR COMPONENT ---
+interface CustomCursorProps {
+  theme: string;
+}
+
+const CustomCursor: React.FC<CustomCursorProps> = ({ theme }) => {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const updatePosition = (e: MouseEvent) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+      if (!isVisible) setIsVisible(true);
+    };
+
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest('button, a, input, label, [role="button"]')) {
+        setIsHovering(true);
+      }
+    };
+
+    const handleMouseOut = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest('button, a, input, label, [role="button"]')) {
+        setIsHovering(false);
+      }
+    };
+
+    window.addEventListener('mousemove', updatePosition);
+    window.addEventListener('mouseover', handleMouseOver);
+    window.addEventListener('mouseout', handleMouseOut);
+
+    return () => {
+      window.removeEventListener('mousemove', updatePosition);
+      window.removeEventListener('mouseover', handleMouseOver);
+      window.removeEventListener('mouseout', handleMouseOut);
+    };
+  }, [isVisible]);
+
+  // Colors based on theme
+  const cursorColor = theme === 'dark' ? '59, 130, 246' : '5, 150, 105'; // Blue-500 or Emerald-600
+
+  return (
+    <div 
+      className="fixed pointer-events-none z-[9999] hidden md:block transition-opacity duration-300"
+      style={{ 
+        left: position.x, 
+        top: position.y,
+        opacity: isVisible ? 1 : 0,
+        transform: 'translate(-50%, -50%)'
+      }}
+    >
+      {/* Main Dot */}
+      <div 
+        className="rounded-full transition-all duration-300 ease-out flex items-center justify-center"
+        style={{
+          width: isHovering ? '64px' : '12px',
+          height: isHovering ? '64px' : '12px',
+          backgroundColor: isHovering ? `rgba(${cursorColor}, 0.1)` : `rgba(${cursorColor}, 1)`,
+          border: isHovering ? `1px solid rgba(${cursorColor}, 0.3)` : 'none',
+          backdropFilter: isHovering ? 'blur(2px)' : 'none'
+        }}
+      />
+    </div>
+  );
+};
 
 interface PhygoLogoProps {
   className?: string;
@@ -74,7 +141,6 @@ interface RevealTextProps {
   className?: string;
 }
 
-// High-end Reveal Animation
 const RevealText: React.FC<RevealTextProps> = ({ children, delay = 0, className = "" }) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -96,10 +162,181 @@ const RevealText: React.FC<RevealTextProps> = ({ children, delay = 0, className 
   );
 };
 
+// --- QUALIFIED FORM COMPONENT ---
+interface QualifiedFormProps {
+  isOpen: boolean;
+  onClose: () => void;
+  theme: string;
+  colors: any;
+}
+
+const QualifiedForm: React.FC<QualifiedFormProps> = ({ isOpen, onClose, theme, colors }) => {
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    patrimony: ''
+  });
+
+  if (!isOpen) return null;
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Format message for WhatsApp
+    const message = `Olá, gostaria de solicitar uma consultoria.%0A%0A*Nome:* ${formData.name}%0A*Email:* ${formData.email}%0A*Telefone:* ${formData.phone}%0A*Patrimônio Investível:* ${formData.patrimony}`;
+    window.open(`https://api.whatsapp.com/send/?phone=5512981153079&text=${message}`, '_blank');
+    onClose();
+  };
+
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) onClose();
+  };
+
+  const inputClasses = `w-full bg-transparent border-b ${colors.borderSubtle} py-3 text-lg focus:outline-none focus:border-${theme === 'dark' ? 'blue-500' : 'emerald-600'} transition-colors ${colors.textMain} placeholder:text-gray-500`;
+
+  return (
+    <div 
+      className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300"
+      onClick={handleBackdropClick}
+    >
+      <div className={`relative w-full max-w-lg ${colors.bgSec} border ${colors.borderSubtle} shadow-2xl p-8 md:p-12 overflow-hidden animate-in zoom-in-95 duration-300`}>
+        <button 
+          onClick={onClose}
+          className={`absolute top-6 right-6 p-2 hover:bg-white/5 rounded-full transition-colors ${colors.textMuted}`}
+        >
+          <X size={24} />
+        </button>
+
+        <div className="mb-8">
+          <span className={`text-xs font-bold uppercase tracking-wider ${colors.accent}`}>Aplicação</span>
+          <h3 className={`text-3xl md:text-4xl font-light mt-2 ${colors.textMain}`}>
+            Inicie sua Jornada
+          </h3>
+          <p className={`mt-2 text-sm ${colors.textMuted}`}>
+            Preencha seus dados para que um de nossos sócios entre em contato.
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-8">
+          {step === 1 && (
+            <div className="space-y-6 animate-in slide-in-from-right-8 duration-300">
+              <div>
+                <label className={`block text-xs uppercase tracking-wider ${colors.textMuted} mb-1`}>Nome Completo</label>
+                <input 
+                  type="text" 
+                  required
+                  className={inputClasses}
+                  placeholder="Seu nome"
+                  value={formData.name}
+                  onChange={e => setFormData({...formData, name: e.target.value})}
+                />
+              </div>
+              <div>
+                <label className={`block text-xs uppercase tracking-wider ${colors.textMuted} mb-1`}>E-mail Profissional</label>
+                <input 
+                  type="email" 
+                  required
+                  className={inputClasses}
+                  placeholder="nome@empresa.com"
+                  value={formData.email}
+                  onChange={e => setFormData({...formData, email: e.target.value})}
+                />
+              </div>
+              <div className="flex justify-end pt-4">
+                <button 
+                  type="button"
+                  onClick={() => {
+                    if(formData.name && formData.email) setStep(2);
+                  }}
+                  className={`flex items-center gap-2 px-6 py-3 ${colors.textMain} border ${colors.borderSubtle} hover:${colors.bgTertiary} transition-all`}
+                >
+                  Próximo <ArrowRight size={16} />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {step === 2 && (
+            <div className="space-y-6 animate-in slide-in-from-right-8 duration-300">
+              <div>
+                <label className={`block text-xs uppercase tracking-wider ${colors.textMuted} mb-1`}>WhatsApp / Telefone</label>
+                <input 
+                  type="tel" 
+                  required
+                  className={inputClasses}
+                  placeholder="(00) 00000-0000"
+                  value={formData.phone}
+                  onChange={e => setFormData({...formData, phone: e.target.value})}
+                />
+              </div>
+              <div>
+                <label className={`block text-xs uppercase tracking-wider ${colors.textMuted} mb-4`}>Patrimônio Investível</label>
+                <div className="grid grid-cols-1 gap-3">
+                  {['R$ 150k - R$ 500k', 'R$ 500k - R$ 1M', 'R$ 1M - R$ 5M', 'Acima de R$ 5M'].map((range) => (
+                    <label 
+                      key={range}
+                      className={`flex items-center gap-3 p-4 border cursor-pointer transition-all ${
+                        formData.patrimony === range 
+                        ? `${colors.accentBorder} ${colors.accentBg}/10` 
+                        : `${colors.borderSubtle} hover:bg-white/5`
+                      }`}
+                    >
+                      <input 
+                        type="radio" 
+                        name="patrimony"
+                        value={range}
+                        checked={formData.patrimony === range}
+                        onChange={e => setFormData({...formData, patrimony: e.target.value})}
+                        className="hidden"
+                      />
+                      <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+                        formData.patrimony === range ? colors.accentBorder : 'border-gray-500'
+                      }`}>
+                        {formData.patrimony === range && <div className={`w-2 h-2 rounded-full ${colors.accentBg}`} />}
+                      </div>
+                      <span className={colors.textMain}>{range}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+              <div className="flex justify-between pt-4">
+                <button 
+                  type="button"
+                  onClick={() => setStep(1)}
+                  className={`text-sm ${colors.textMuted} hover:${colors.textMain}`}
+                >
+                  Voltar
+                </button>
+                <button 
+                  type="submit"
+                  disabled={!formData.phone || !formData.patrimony}
+                  className={`flex items-center gap-2 px-8 py-3 ${colors.accentBg} text-white font-bold uppercase tracking-wider hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed`}
+                >
+                  Solicitar Contato
+                </button>
+              </div>
+            </div>
+          )}
+        </form>
+        
+        {/* Step Indicator */}
+        <div className="absolute bottom-0 left-0 h-1 bg-gray-800 w-full">
+          <div 
+            className={`h-full ${colors.accentBg} transition-all duration-500`} 
+            style={{ width: `${step * 50}%` }} 
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default function PhygoLuxury() {
   const { theme, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [formOpen, setFormOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -120,7 +357,7 @@ export default function PhygoLuxury() {
 
   // --- STYLE VARIABLES BASED ON THEME ---
   const colors = useMemo(() => ({
-    bgMain: theme === 'dark' ? 'bg-[#050505]' : 'bg-[#F4F7F5]', // Dark Black vs Soft Minty White
+    bgMain: theme === 'dark' ? 'bg-[#050505]' : 'bg-[#F4F7F5]',
     bgSec: theme === 'dark' ? 'bg-[#030303]' : 'bg-white',
     bgTertiary: theme === 'dark' ? 'bg-[#080808]' : 'bg-[#EAF2EE]',
     textMain: theme === 'dark' ? 'text-white' : 'text-gray-900',
@@ -136,6 +373,20 @@ export default function PhygoLuxury() {
   return (
     <div className={`min-h-screen font-sans overflow-x-hidden transition-colors duration-700 ${colors.bgMain} ${colors.textMain} selection:${theme === 'dark' ? 'bg-blue-600' : 'bg-emerald-200'} selection:${theme === 'dark' ? 'text-white' : 'text-emerald-900'}`}>
       <NoiseOverlay />
+      <CustomCursor theme={theme} />
+      <style>{`
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: ${theme === 'dark' ? '#050505' : '#F4F7F5'}; }
+        ::-webkit-scrollbar-thumb { background: ${theme === 'dark' ? '#333' : '#CBD5E1'}; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: ${theme === 'dark' ? '#2563EB' : '#047857'}; }
+        
+        /* HIDE DEFAULT CURSOR ON DESKTOP */
+        @media (min-width: 768px) {
+          body, button, a, input, label {
+            cursor: none !important;
+          }
+        }
+      `}</style>
       
       {/* --- GRID BACKGROUND --- */}
       <div className="fixed inset-0 z-0 pointer-events-none transition-colors duration-700">
@@ -144,6 +395,13 @@ export default function PhygoLuxury() {
         <div className={`hidden md:block absolute left-1/3 w-px h-full ${colors.gridLine}`} />
         <div className={`hidden md:block absolute left-2/3 w-px h-full ${colors.gridLine}`} />
       </div>
+
+      <QualifiedForm 
+        isOpen={formOpen} 
+        onClose={() => setFormOpen(false)} 
+        theme={theme}
+        colors={colors}
+      />
 
       {/* --- HEADER --- */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled ? `${colors.navBg} backdrop-blur-md py-4 border-b ${colors.borderSubtle}` : 'py-8'}`}>
@@ -175,20 +433,18 @@ export default function PhygoLuxury() {
                 <span className="hidden sm:inline">Área do Cliente</span>
              </button>
              
-             <a 
-               href="https://api.whatsapp.com/send/?phone=5512981153079&text=Ol%C3%A1%21+Fiquei+muito+interessado+e+quero+saber+mais%21&type=phone_number&app_absent=0"
-               target="_blank"
-               rel="noopener noreferrer"
+             <button 
+               onClick={() => setFormOpen(true)}
                className={`hidden sm:inline-block relative group overflow-hidden px-6 py-2 border rounded-full bg-transparent transition-colors duration-300 text-center no-underline ${theme === 'dark' ? 'border-white/20 hover:border-blue-600' : 'border-emerald-900/20 hover:border-emerald-700'}`}
              >
                <span className={`relative z-10 text-xs font-bold uppercase tracking-wider transition-colors ${theme === 'dark' ? 'group-hover:text-blue-500' : 'group-hover:text-emerald-700'}`}>Seja Cliente</span>
-             </a>
+             </button>
 
              <button 
-                className="md:hidden p-2 text-current"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                 className="md:hidden p-2 text-current"
+                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
              >
-               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
              </button>
           </div>
         </div>
@@ -203,14 +459,15 @@ export default function PhygoLuxury() {
              <button className={`flex items-center gap-2 text-xs font-bold uppercase tracking-wider ${colors.textMain}`}>
                 <Lock size={14} /> Área do Cliente
              </button>
-             <a 
-               href="https://api.whatsapp.com/send/?phone=5512981153079&text=Ol%C3%A1%21+Fiquei+muito+interessado+e+quero+saber+mais%21&type=phone_number&app_absent=0"
-               target="_blank"
-               rel="noopener noreferrer"
+             <button 
+               onClick={() => {
+                 setMobileMenuOpen(false);
+                 setFormOpen(true);
+               }}
                className={`text-center py-4 border rounded-full ${theme === 'dark' ? 'border-white/20' : 'border-emerald-900/20'} ${colors.textMain} font-bold uppercase text-xs`}
              >
                Seja Cliente
-             </a>
+             </button>
           </div>
         )}
       </nav>
@@ -308,12 +565,12 @@ export default function PhygoLuxury() {
 
             <div className={`md:col-span-7 relative pl-8 border-l ${colors.borderSubtle} space-y-16`}>
                {[
-                 { year: '2018', title: 'O Início', desc: 'Maurício entra no mercado financeiro e conquista suas primeiras certificações técnicas.' },
-                 { year: '2019', title: 'Assessoria Private', desc: 'Início da assessoria particular e gestão de patrimônio em Goiânia.' },
+                 { year: '2018', title: 'O Início', desc: 'Início da atuação no mercado financeiro e conquista das primeiras certificações técnicas da equipe.' },
+                 { year: '2019', title: 'Assessoria Private', desc: 'Consolidação das operações de assessoria particular e gestão de patrimônio em Goiânia.' },
                  { year: '2021', title: 'Fundação Phygo', desc: 'Nascimento oficial da Phygo Gestão de Ativos em Taubaté - SP.' },
-                 { year: '2022', title: 'Reconhecimento Nacional', desc: 'Maurício atinge o Top 3 Brasil no desafio Safra Top Gestores, entre mais de 250 profissionais.' },
-                 { year: '2024', title: 'Expansão Sólida', desc: 'Phygo atinge a marca de 100 clientes ativos sob gestão.' },
-                 { year: '2025', title: 'Novos Horizontes', desc: 'Expansão da equipe e inauguração das operações em São José dos Campos e São Paulo.' }
+                 { year: '2022', title: 'Reconhecimento Nacional', desc: 'Equipe de gestão atinge o Top 3 Brasil no desafio Safra Top Gestores, entre mais de 250 assets.' },
+                 { year: '2024', title: 'Expansão Sólida', desc: 'Phygo atinge a marca de 100 clientes ativos e mais de R$ 80M sob gestão.' },
+                 { year: '2025', title: 'Novos Horizontes', desc: 'Expansão institucional e inauguração das operações em São José dos Campos e São Paulo.' }
                ].map((item, idx) => (
                  <div key={idx} className="relative group">
                     <div className={`absolute -left-[41px] top-1 w-5 h-5 ${colors.bgSec} border-2 ${colors.borderSubtle} rounded-full group-hover:${colors.accentBorder} group-hover:${colors.accentBg} transition-colors duration-500`} />
@@ -394,14 +651,12 @@ export default function PhygoLuxury() {
              <h2 className="text-4xl md:text-6xl font-bold mb-8 max-w-2xl leading-tight">
                Pronto para elevar <br/> seu legado financeiro?
              </h2>
-             <a 
-               href="https://api.whatsapp.com/send/?phone=5512981153079&text=Ol%C3%A1%21+Fiquei+muito+interessado+e+quero+saber+mais%21&type=phone_number&app_absent=0"
-               target="_blank"
-               rel="noopener noreferrer"
+             <button 
+               onClick={() => setFormOpen(true)}
                className={`bg-white text-black px-8 py-4 text-sm font-bold uppercase tracking-widest hover:${colors.accentBg} hover:text-white transition-all duration-300 flex items-center gap-4 group w-fit ${theme === 'light' ? 'border border-emerald-900/10' : ''}`}
              >
                Torne-se Cliente <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-             </a>
+             </button>
           </div>
           <div className="mt-12 md:mt-0 text-right">
             <div className={`text-sm ${colors.textMuted} mb-2`}>Escritórios</div>
@@ -461,4 +716,3 @@ export default function PhygoLuxury() {
     </div>
   );
 }
-
