@@ -1,0 +1,13 @@
+{
+  "schema_version": "v1",
+  "name": "Phygo Gestão de Ativos",
+  "description": "Gestora brasileira de carteiras administradas personalizadas. Zero taxa de administração, remuneração exclusivamente por performance fee sobre lucro real. R$100M+ sob gestão, 140+ famílias.",
+  "url": "https://phygo.com.br",
+  "contact_email": "contato@phygo.com.br",
+  "legal_info_url": "https://phygo.com.br/termos",
+  "privacy_policy_url": "https://phygo.com.br/privacidade",
+  "cnpj": "45.236.248/0001-94",
+  "industry": "wealth_management",
+  "country": "BR",
+  "language": "pt-BR"
+}

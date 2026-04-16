@@ -1,0 +1,38 @@
+# Phygo Gestão de Ativos - robots.txt
+# https://phygo.com.br
+
+User-agent: *
+Allow: /
+
+# Explicitly allow AI/LLM crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Disallow: /assets/*.mp4
+Disallow: /assets/*.glb
+
+Sitemap: https://phygo.com.br/sitemap.xml
