@@ -9,72 +9,8 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta name="description" content="Política de privacidade da Phygo Gestão de Ativos - LGPD compliant."/>
 <title>Política de Privacidade | Phygo Gestão de Ativos</title>
-<script src="assets/tailwind.js"></script>
 
 
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "primary-fixed-dim": "#91d5b1",
-                    "on-secondary-container": "#636262",
-                    "on-primary": "#ffffff",
-                    "on-tertiary-container": "#cdae88",
-                    "on-surface": "#1a1c1b",
-                    "surface-bright": "#f9f9f7",
-                    "surface-container-highest": "#e2e3e1",
-                    "primary-container": "#005035",
-                    "secondary-fixed-dim": "#c8c6c5",
-                    "tertiary": "#3f2b10",
-                    "secondary-container": "#e2dfde",
-                    "on-error": "#ffffff",
-                    "tertiary-fixed": "#ffddb6",
-                    "secondary-fixed": "#e5e2e1",
-                    "secondary": "#5f5e5e",
-                    "primary-fixed": "#acf1cc",
-                    "on-error-container": "#93000a",
-                    "surface-container-lowest": "#ffffff",
-                    "surface-tint": "#276a4d",
-                    "on-background": "#1a1c1b",
-                    "on-tertiary-fixed": "#291801",
-                    "background": "#f9f9f7",
-                    "on-surface-variant": "#404943",
-                    "tertiary-fixed-dim": "#e2c19b",
-                    "on-tertiary-fixed-variant": "#594325",
-                    "on-primary-container": "#7ec19e",
-                    "error": "#ba1a1a",
-                    "inverse-primary": "#91d5b1",
-                    "surface": "#f9f9f7",
-                    "on-primary-fixed": "#002113",
-                    "on-primary-fixed-variant": "#025136",
-                    "on-secondary-fixed-variant": "#474746",
-                    "surface-container": "#eeeeec",
-                    "primary": "#003723",
-                    "surface-dim": "#dadad8",
-                    "surface-container-low": "#f4f4f2",
-                    "on-secondary-fixed": "#1c1b1b",
-                    "inverse-surface": "#2f3130",
-                    "outline": "#707972",
-                    "surface-container-high": "#e8e8e6",
-                    "tertiary-container": "#584124",
-                    "on-secondary": "#ffffff",
-                    "inverse-on-surface": "#f1f1ef",
-                    "surface-variant": "#e2e3e1",
-                    "on-tertiary": "#ffffff",
-                    "error-container": "#ffdad6",
-                    "outline-variant": "#bfc9c1"
-            },
-            "fontFamily": {
-                    "headline": ["Newsreader", "serif"],
-                    "body": ["Space Grotesk", "sans-serif"],
-                    "label": ["Space Grotesk", "sans-serif"]
-            }
-          },
-        }
-      }
-    </script>
 <style>
         .font-newsreader { font-family: 'Newsreader', serif; }
         .font-space-grotesk { font-family: 'Space Grotesk', sans-serif; }
@@ -252,6 +188,8 @@
 <meta name="coverage" content="Worldwide"/>
 <meta name="distribution" content="global"/>
 <link rel="llms" href="/llms.txt"/>
+<script src="assets/js/privacidade-tw.js"></script>
+<script src="assets/tailwind.js"></script>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary/10">
 <!-- TopNavBar — Unified v2 -->
@@ -452,41 +390,8 @@ Rentabilidade passada não representa garantia de rentabilidade futura. Investim
 </div>
 </footer>
 
-<script>
-document.querySelectorAll('.nav-link').forEach(a => {
-  if (a.dataset.page === 'home') a.classList.add('active');
-});
-</script>
-<script>
-// Mobile menu toggle
-const menuBtn = document.getElementById('mobile-menu-btn');
-const mobileMenu = document.getElementById('mobile-menu');
-const bar1 = document.getElementById('bar1');
-const bar2 = document.getElementById('bar2');
-const bar3 = document.getElementById('bar3');
-let menuOpen = false;
 
-if (menuBtn) {
-  menuBtn.addEventListener('click', () => {
-    menuOpen = !menuOpen;
-    if (menuOpen) {
-      mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
-      mobileMenu.classList.add('opacity-100');
-      bar1.style.transform = 'rotate(45deg) translate(4px, 4px)';
-      bar2.style.opacity = '0';
-      bar3.style.transform = 'rotate(-45deg) translate(4px, -4px)';
-      document.body.style.overflow = 'hidden';
-    } else {
-      mobileMenu.classList.add('opacity-0', 'pointer-events-none');
-      mobileMenu.classList.remove('opacity-100');
-      bar1.style.transform = '';
-      bar2.style.opacity = '1';
-      bar3.style.transform = '';
-      document.body.style.overflow = '';
-    }
-  });
-}
-</script>
+
 
 <!-- WhatsApp Floating Button -->
 <a href="https://wa.me/5512981153079" target="_blank" id="whatsapp-float" 
@@ -498,66 +403,7 @@ if (menuBtn) {
 </a>
 
 
-<script>
-// ============================================================
-// Scroll Reveal Animation
-// ============================================================
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-        }
-    });
-}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
 
-document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger-children').forEach(el => {
-    revealObserver.observe(el);
-});
-
-// ============================================================
-// Counter Animation
-// ============================================================
-function animateCounter(element, target, suffix, prefix, duration) {
-    let start = 0;
-    const isFloat = target % 1 !== 0;
-    const startTime = performance.now();
-    
-    function update(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        // Ease out cubic
-        const eased = 1 - Math.pow(1 - progress, 3);
-        const current = Math.floor(eased * target);
-        
-        element.textContent = prefix + current.toLocaleString('pt-BR') + suffix;
-        
-        if (progress < 1) {
-            requestAnimationFrame(update);
-        } else {
-            element.textContent = prefix + target.toLocaleString('pt-BR') + suffix;
-        }
-    }
-    requestAnimationFrame(update);
-}
-
-const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting && !entry.target.dataset.counted) {
-            entry.target.dataset.counted = 'true';
-            const target = parseInt(entry.target.dataset.target);
-            const suffix = entry.target.dataset.suffix || '';
-            const prefix = entry.target.dataset.prefix || '';
-            const duration = parseInt(entry.target.dataset.duration) || 2000;
-            animateCounter(entry.target, target, suffix, prefix, duration);
-            entry.target.classList.add('counter-glow');
-        }
-    });
-}, { threshold: 0.5 });
-
-document.querySelectorAll('[data-counter]').forEach(el => {
-    counterObserver.observe(el);
-});
-</script>
 
 
 <!-- Cookie Consent Banner (LGPD) -->
@@ -576,59 +422,15 @@ Utilizamos cookies para analisar o tráfego e melhorar sua experiência. Você p
 </div>
 
 <div style="display:flex; gap:10px;">
-<button onclick="cookieDecline()" style="flex:1; background:transparent; border:1px solid rgba(249,249,247,0.12); color:rgba(249,249,247,0.5); padding:12px 20px; font-size:11px; letter-spacing:0.15em; text-transform:uppercase; cursor:pointer; font-family:'Space Grotesk',sans-serif; border-radius:8px; transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(249,249,247,0.3)';this.style.color='rgba(249,249,247,0.8)'" onmouseout="this.style.borderColor='rgba(249,249,247,0.12)';this.style.color='rgba(249,249,247,0.5)'">Recusar</button>
-<button onclick="cookieAccept()" style="flex:1; background:#003723; border:1px solid #003723; color:white; padding:12px 20px; font-size:11px; letter-spacing:0.15em; text-transform:uppercase; cursor:pointer; font-family:'Space Grotesk',sans-serif; border-radius:8px; transition:all 0.2s;" onmouseover="this.style.background='#004d30'" onmouseout="this.style.background='#003723'">Aceitar</button>
+<button id="cookie-decline" style="flex:1; background:transparent; border:1px solid rgba(249,249,247,0.12); color:rgba(249,249,247,0.5); padding:12px 20px; font-size:11px; letter-spacing:0.15em; text-transform:uppercase; cursor:pointer; font-family:'Space Grotesk',sans-serif; border-radius:8px; transition:all 0.2s;">Recusar</button>
+<button id="cookie-accept" style="flex:1; background:#003723; border:1px solid #003723; color:white; padding:12px 20px; font-size:11px; letter-spacing:0.15em; text-transform:uppercase; cursor:pointer; font-family:'Space Grotesk',sans-serif; border-radius:8px; transition:all 0.2s;">Aceitar</button>
 </div>
 
 </div>
 </div>
 
-<script>
-// Cookie consent & Analytics loader (LGPD-compliant)
-function loadGA() {
-    if (localStorage.getItem('phygo_cookie_consent') !== 'accepted') return;
-    var GA_ID = ''; // TODO: GA4 Measurement ID quando ativar analytics
-    if (!GA_ID || GA_ID.indexOf('X') !== -1) return;
-    var s = document.createElement('script');
-    s.async = true;
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
-    document.head.appendChild(s);
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    window.gtag = gtag;
-    gtag('js', new Date());
-    gtag('config', GA_ID);
-}
-function cookieAccept() {
-    localStorage.setItem('phygo_cookie_consent', 'accepted');
-    var el = document.getElementById('cookieBanner');
-    if (el) el.style.display = 'none';
-    loadGA();
-}
-function cookieDecline() {
-    localStorage.setItem('phygo_cookie_consent', 'declined');
-    var el = document.getElementById('cookieBanner');
-    if (el) el.style.display = 'none';
-}
-(function() {
-    var consent = localStorage.getItem('phygo_cookie_consent');
-    if (consent === 'accepted') {
-        loadGA();
-    } else if (!consent) {
-        setTimeout(function() {
-            var el = document.getElementById('cookieBanner');
-            if (!el) return;
-            el.style.display = 'block';
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-            setTimeout(function() {
-                el.style.opacity = '1';
-                el.style.transform = 'translateY(0)';
-            }, 50);
-        }, 1500);
-    }
-})();
-</script>
 
+
+<script src="assets/js/privacidade.js" defer></script>
+<script src="assets/js/site.js" defer></script>
 </body></html>

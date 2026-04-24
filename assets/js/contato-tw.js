@@ -1,0 +1,63 @@
+
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#1a1c1b",
+                    "on-tertiary-container": "#cdae88",
+                    "tertiary-container": "#584124",
+                    "on-tertiary-fixed": "#291801",
+                    "inverse-on-surface": "#f1f1ef",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#dadad8",
+                    "outline": "#707972",
+                    "tertiary": "#3f2b10",
+                    "on-surface": "#1a1c1b",
+                    "outline-variant": "#bfc9c1",
+                    "primary-container": "#005035",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "inverse-primary": "#91d5b1",
+                    "surface-container-highest": "#e2e3e1",
+                    "surface": "#f9f9f7",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#e5e2e1",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#acf1cc",
+                    "on-surface-variant": "#404943",
+                    "primary-fixed-dim": "#91d5b1",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#e2c19b",
+                    "on-secondary-fixed": "#1c1b1b",
+                    "surface-variant": "#e2e3e1",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed": "#ffddb6",
+                    "on-primary-container": "#7ec19e",
+                    "on-tertiary-fixed-variant": "#594325",
+                    "surface-tint": "#276a4d",
+                    "on-primary-fixed-variant": "#025136",
+                    "on-tertiary": "#ffffff",
+                    "background": "#f9f9f7",
+                    "secondary-container": "#e2dfde",
+                    "surface-bright": "#f9f9f7",
+                    "secondary": "#5f5e5e",
+                    "surface-container-low": "#f4f4f2",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "primary": "#003723",
+                    "on-secondary-fixed-variant": "#474746",
+                    "on-secondary-container": "#636262",
+                    "on-primary-fixed": "#002113",
+                    "surface-container-high": "#e8e8e6",
+                    "inverse-surface": "#2f3130",
+                    "surface-container": "#eeeeec"
+            },
+            "fontFamily": {
+                    "headline": ["Newsreader"],
+                    "body": ["Space Grotesk"],
+                    "label": ["Space Grotesk"]
+            }
+          },
+        },
+      }
+    
