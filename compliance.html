@@ -5,13 +5,12 @@
 <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png"/>
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png"/>
 <meta charset="utf-8"/>
-<link href="assets/fonts.css" rel="stylesheet"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta name="description" content="Programa de compliance e conformidade regulatória da Phygo Gestão de Ativos."/>
 <title>Compliance | Phygo Gestão de Ativos</title>
-<script src="assets/tailwind.js"></script>
-
-
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
@@ -567,31 +566,32 @@ Utilizamos cookies para analisar o tráfego e melhorar sua experiência. Você p
 </div>
 
 <script>
-// Cookie consent & Analytics loader (LGPD-compliant)
-function loadGA() {
-    if (localStorage.getItem('phygo_cookie_consent') !== 'accepted') return;
-    var GA_ID = ''; // TODO: GA4 Measurement ID quando ativar analytics
-    if (!GA_ID || GA_ID.indexOf('X') !== -1) return;
-    var s = document.createElement('script');
-    s.async = true;
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
-    document.head.appendChild(s);
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    window.gtag = gtag;
-    gtag('js', new Date());
-    gtag('config', GA_ID);
-}
 function cookieAccept() {
     localStorage.setItem('phygo_cookie_consent', 'accepted');
     var el = document.getElementById('cookieBanner');
-    if (el) el.style.display = 'none';
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    setTimeout(function() { el.style.display = 'none'; }, 300);
     loadGA();
 }
 function cookieDecline() {
     localStorage.setItem('phygo_cookie_consent', 'declined');
     var el = document.getElementById('cookieBanner');
-    if (el) el.style.display = 'none';
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    setTimeout(function() { el.style.display = 'none'; }, 300);
+}
+function loadGA() {
+    if (localStorage.getItem('phygo_cookie_consent') !== 'accepted') return;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
 }
 (function() {
     var consent = localStorage.getItem('phygo_cookie_consent');
@@ -600,7 +600,6 @@ function cookieDecline() {
     } else if (!consent) {
         setTimeout(function() {
             var el = document.getElementById('cookieBanner');
-            if (!el) return;
             el.style.display = 'block';
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';

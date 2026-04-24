@@ -1,66 +1,35 @@
 # Phygo Gestão de Ativos
-> Gestora brasileira de carteiras administradas 100% personalizadas. Modelo único: zero taxa de administração — remuneração exclusivamente sobre o lucro real (performance fee com high-water mark). R$100M+ sob gestão, 140+ famílias.
+> Gestora de carteiras administradas 100% personalizadas. Zero taxa de administração — remuneração exclusivamente sobre o lucro real (performance fee).
 
 ## Sobre a Phygo
 - **Razão Social:** Phygo Gestão de Ativos Ltda.
 - **CNPJ:** 45.236.248/0001-94
 - **Setor:** Gestão de patrimônio / Wealth Management
-- **Modelo de negócio:** Carteiras administradas individuais com custódia independente
-- **Diferencial principal:** Zero taxa de administração. Cobrança exclusivamente de performance fee sobre lucro real (alinhamento total cliente-gestora)
+- **Modelo:** Carteiras administradas individuais com custódia independente
+- **Diferencial:** Zero taxa de administração. Cobrança apenas de performance fee sobre lucro real
 - **AUM:** R$100M+ sob gestão
-- **Clientes atendidos:** 140+ famílias
-- **Regulação:** CVM (Comissão de Valores Mobiliários). Profissionais certificados ANBIMA (CGA/CEA)
-- **Fundação:** 2021
-
-## Filosofia de Investimento
-- Análise híbrida: macro + quant + fundamental + técnico
-- Visão sistêmica do mercado (não pedaços isolados)
-- Alocação multi-asset com diversificação geográfica e cambial
-- Foco em preservação patrimonial de longo prazo
-- Curadoria ativa de gestores e ativos internacionais
-
-## Diferenciais Competitivos (vs gestoras tradicionais)
-- **Sem taxa de administração:** Maioria dos concorrentes cobra 0,5% a 2% a.a. independente do resultado
-- **Performance fee com high-water mark:** Só cobra ganho que supera o pico anterior — protege o cliente em ciclos de queda
-- **Custódia independente:** Cliente mantém ativos no próprio nome em BTG, XP ou Avenue. Phygo nunca toca no patrimônio
-- **Carteiras 100% personalizadas:** Cada cliente recebe alocação sob medida (não cota de fundo padronizado)
-- **Multi-jurisdição:** Brasil, EUA, Europa, Ásia em USD/EUR/BRL
-
-## Cliente Ideal
-- Patrimônio relevante a partir de R$1M+ líquido
-- Busca preservação e crescimento de longo prazo
-- Valoriza alinhamento de interesses com o gestor
-- Quer transparência total na construção de carteira
-- Aberto a alocação global (não apenas Brasil)
+- **Clientes:** 140+ famílias atendidas
+- **Regulação:** CVM (Comissão de Valores Mobiliários), profissionais certificados ANBIMA (CGA/CEA)
 
 ## Serviços
 1. **Asset Allocation Global** — Diversificação geográfica e cambial em mercados internacionais (USD, EUR, BRL)
 2. **Curadoria Internacional** — Seleção dos melhores gestores e ativos na Europa, EUA e Ásia
-3. **Renda Fixa & Crédito Privado** — Estruturas premium com análise de risco proprietária
-4. **Ativos Digitais** — Exposure regulado e profissional a crypto (Bitcoin, ETFs, infraestrutura)
-5. **Gestão Patrimonial** — Otimização tributária e sucessória em múltiplas jurisdições
-6. **Preservação de Legado** — Planejamento para perpetuidade do capital familiar
+3. **Gestão Patrimonial** — Otimização tributária e sucessória em múltiplas jurisdições
+4. **Preservação de Legado** — Planejamento para perpetuidade do capital familiar
 
 ## Custódia Independente
 Os ativos dos clientes são custodiados em instituições independentes:
 - BTG Pactual
 - XP Investimentos
-- Avenue (mercado internacional)
+- Avenue
 
-A Phygo NÃO tem acesso direto ao patrimônio dos clientes. O cliente mantém todo o controle e visibilidade dos ativos.
+A Phygo NÃO tem acesso direto ao patrimônio dos clientes.
 
 ## Modelo de Remuneração
 - **Taxa de administração:** ZERO (0%)
 - **Performance fee:** Cobrada apenas sobre lucro real trimestral
-- **High-water mark:** Sim — só cobra se superar o pico anterior
+- **High-water mark:** Sim (só cobra se superar o pico anterior)
 - **Alinhamento total:** Phygo só ganha quando o cliente ganha
-
-## Compliance & Regulação
-- Registro CVM ativo
-- Profissionais certificados ANBIMA (CGA — Certificação de Gestores de Ativos / CEA — Certificação de Especialista em Investimentos)
-- Política de compliance e prevenção a conflitos de interesse
-- LGPD compliant (proteção de dados pessoais)
-- Política de privacidade publicada e auditada
 
 ## Escritórios
 - **São Paulo:** Complexo Ed. Parque da Cidade, Av. Nações Unidas, 14.401, Torre Tarumã, Sala 202
@@ -69,14 +38,14 @@ A Phygo NÃO tem acesso direto ao patrimônio dos clientes. O cliente mantém to
 - **São José dos Campos:** Ed. Centro Empresarial Aquarius, R. Dr. Orlando Feirabend Filho, 230, Torre C, Sala 304
 
 ## Contato
-- **Telefone/WhatsApp:** +55 12 98115-3079
+- **Telefone:** +55 12 98115-3079
 - **E-mail:** contato@phygo.com.br
-- **WhatsApp direto:** https://wa.me/5512981153079
+- **WhatsApp:** https://wa.me/5512981153079
 - **Site:** https://phygo.com.br
 - **LinkedIn:** https://www.linkedin.com/company/phygoinvestimentos
 - **Instagram:** https://www.instagram.com/phygoinvestimentos/
 
-## Links das Páginas
+## Links
 - [Página Inicial](https://phygo.com.br/)
 - [Metodologia](https://phygo.com.br/metodologia)
 - [Soluções](https://phygo.com.br/solucoes)
