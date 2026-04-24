@@ -1,0 +1,14 @@
+# Phygo Gestão de Ativos — Security Policy
+# RFC 9116
+
+Contact: mailto:security@phygo.com.br
+Contact: mailto:contato@phygo.com.br
+Expires: 2027-04-24T00:00:00.000Z
+Preferred-Languages: pt-BR, en
+Canonical: https://phygo.com.br/.well-known/security.txt
+Policy: https://phygo.com.br/compliance
+
+# Se você encontrou uma vulnerabilidade, por favor:
+# 1. Entre em contato pelo email acima
+# 2. Aguarde confirmação antes de divulgar publicamente
+# 3. Nós nos comprometemos a responder em até 48h úteis
