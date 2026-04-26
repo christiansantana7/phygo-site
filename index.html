@@ -304,58 +304,12 @@
   }
 }
 </script>
+<!-- GSAP — page transitions (S11 SOTA) -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
+<script src="assets/js/transitions.js" defer></script>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary/10">
-<!-- Page Transition Overlay (S9.3 — cherry-picked from Kimi UI/UX) -->
-<div id="page-transition" aria-hidden="true" style="position:fixed; inset:0; z-index:9998; background:#003723; pointer-events:none; opacity:0; transition:opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1); transform:translateY(-100%);"></div>
-<script>
-(function(){
-  const pt = document.getElementById('page-transition');
-  if(!pt) return;
-  // Respect users who asked for less motion (accessibility)
-  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce) return;
-
-  function clear(){
-    pt.style.opacity = '0';
-    pt.style.transform = 'translateY(-100%)';
-  }
-  function exitTo(url){
-    sessionStorage.setItem('phygo_transition','1');
-    pt.style.transform = 'translateY(0)';
-    pt.style.opacity = '1';
-    setTimeout(function(){ window.location.href = url; }, 550);
-    // Failsafe: if navigation never happens (cancelled / blocked), unfreeze the page
-    setTimeout(clear, 1500);
-  }
-  function enter(){
-    pt.style.transform = 'translateY(0)';
-    pt.style.opacity = '1';
-    requestAnimationFrame(function(){
-      setTimeout(function(){ clear(); }, 50);
-    });
-  }
-
-  document.addEventListener('click', function(e){
-    if(e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
-    const a = e.target.closest && e.target.closest('a');
-    if(!a) return;
-    if(a.target === '_blank' || a.hasAttribute('download')) return;
-    const href = a.getAttribute('href');
-    if(!href) return;
-    // Same-origin only: skip external, anchors, mailto, tel, javascript:, wa.me
-    if(/^(https?:|mailto:|tel:|javascript:|#)/i.test(href)) return;
-    e.preventDefault();
-    exitTo(href);
-  });
-
-  if(window.sessionStorage.getItem('phygo_transition') === '1'){
-    window.sessionStorage.removeItem('phygo_transition');
-    enter();
-  }
-})();
-</script>
-
 <!-- TopNavBar — Unified v2 -->
 <nav class="fixed top-0 w-full z-50 bg-[#f9f9f7]/90 backdrop-blur-2xl border-b border-[#bfc9c1]/10 transition-all duration-300" id="main-nav">
 <div class="flex justify-between items-center px-6 md:px-5 md:px-12 py-4 w-full max-w-screen-2xl mx-auto">
