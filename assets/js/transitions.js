@@ -3,6 +3,7 @@
  *
  * SOTA implementation:
  *  - Diagonal clip-path reveal (Phygo green) instead of brutal slide
+ *  - REAL Phygo logo (white transparent) centered during overlay
  *  - Stagger entrance for hero/section headers (.gsap-reveal)
  *  - ScrollTrigger reveals for sections (.gsap-section)
  *  - prefers-reduced-motion honored via gsap.matchMedia()
@@ -20,7 +21,7 @@
   // Brand
   const BRAND_DARK = '#003723';
   const BRAND_LIGHT = '#91d5b1';
-  const BG = '#f9f9f7';
+  const LOGO_PATH = 'assets/logo-white-transparent.png';
 
   // ─── Build overlay DOM ───────────────────────────────────────────────────
   const overlay = document.createElement('div');
@@ -33,19 +34,29 @@
     will-change: clip-path;
   `;
 
-  // Logo mark inside overlay (subtle)
-  const mark = document.createElement('div');
-  mark.style.cssText = `
+  // Real Phygo logo (white transparent)
+  const logoWrap = document.createElement('div');
+  logoWrap.style.cssText = `
     position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-    opacity: 0; transform: translateY(20px);
+    opacity: 0; transform: translateY(20px) scale(0.92);
   `;
-  mark.innerHTML = `
-    <svg width="72" height="72" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle cx="50" cy="50" r="42" fill="none" stroke="${BRAND_LIGHT}" stroke-width="2" stroke-dasharray="264" stroke-dashoffset="0" id="phygo-pt-ring"/>
-      <text x="50" y="60" text-anchor="middle" font-family="'Newsreader', serif" font-style="italic" font-size="38" fill="${BRAND_LIGHT}">P</text>
-    </svg>
+  const logoImg = document.createElement('img');
+  logoImg.src = LOGO_PATH;
+  logoImg.alt = 'Phygo';
+  logoImg.style.cssText = `
+    height: clamp(48px, 7vw, 84px); width: auto;
+    filter: drop-shadow(0 4px 20px rgba(145, 213, 177, 0.25));
   `;
-  overlay.appendChild(mark);
+  // Fallback if image fails (e.g. relative path edge case)
+  logoImg.onerror = () => {
+    // Try absolute from origin
+    if (!logoImg.dataset.fallbackTried) {
+      logoImg.dataset.fallbackTried = '1';
+      logoImg.src = '/assets/logo-white-transparent.png';
+    }
+  };
+  logoWrap.appendChild(logoImg);
+  overlay.appendChild(logoWrap);
 
   // Loading bar (separate, on top)
   const bar = document.createElement('div');
@@ -61,7 +72,6 @@
   document.body.appendChild(bar);
 
   // ─── Reveal entrance — staggered hero/section headers ────────────────────
-  // Mark elements with class="gsap-reveal" and they animate on page enter
   function entranceAnimation() {
     const reveals = document.querySelectorAll('.gsap-reveal, h1, .hero-content > *');
     if (reveals.length === 0) return;
@@ -76,15 +86,13 @@
     });
   }
 
-  // ─── ScrollTrigger reveals (if available) ────────────────────────────────
+  // ─── ScrollTrigger reveals ───────────────────────────────────────────────
   function setupScrollReveals() {
     if (typeof ScrollTrigger === 'undefined') return;
     gsap.registerPlugin(ScrollTrigger);
 
-    // Sections with class="gsap-section" or just <section>
     const sections = document.querySelectorAll('.gsap-section, section:not(.no-reveal)');
     sections.forEach((sec) => {
-      // Find direct text/card children to stagger
       const items = sec.querySelectorAll(':scope > div, :scope > h2, :scope > h3, :scope > p, :scope > .card, :scope > .reveal-item');
       if (items.length === 0) {
         gsap.from(sec, {
@@ -122,12 +130,11 @@
       clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
       duration: 0.55
     })
-      .to(mark, { autoAlpha: 1, y: 0, duration: 0.3 }, '-=0.25')
-      .to('#phygo-pt-ring', {
-        strokeDashoffset: 264,
-        duration: 0.6,
-        ease: 'power2.inOut'
-      }, '-=0.35')
+      .to(logoWrap, {
+        autoAlpha: 1, y: 0, scale: 1,
+        duration: 0.4,
+        ease: 'back.out(1.4)'
+      }, '-=0.3')
       .to(bar, { scaleX: 0.85, duration: 0.4, ease: 'power2.out' }, 0)
       .add(() => { window.location.href = url; });
 
@@ -136,7 +143,7 @@
       if (!transitioning) return;
       transitioning = false;
       gsap.set(overlay, { clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)' });
-      gsap.set(mark, { autoAlpha: 0, y: 20 });
+      gsap.set(logoWrap, { autoAlpha: 0, y: 20, scale: 0.92 });
       gsap.set(bar, { scaleX: 0 });
     }, 1500);
   }
@@ -144,23 +151,26 @@
   function enterFromTransition() {
     // Coming from previous page — overlay starts covering, retract
     gsap.set(overlay, { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' });
-    gsap.set(mark, { autoAlpha: 1, y: 0 });
+    gsap.set(logoWrap, { autoAlpha: 1, y: 0, scale: 1 });
     gsap.set(bar, { scaleX: 1 });
 
     const tl = gsap.timeline({
       defaults: { ease: 'power3.inOut' },
       onComplete: () => {
         gsap.set(overlay, { clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)' });
-        gsap.set(mark, { autoAlpha: 0, y: 20 });
+        gsap.set(logoWrap, { autoAlpha: 0, y: 20, scale: 0.92 });
       }
     });
 
     tl.to(bar, { scaleX: 1.0, duration: 0.15, ease: 'none' })
-      .to(mark, { autoAlpha: 0, y: -10, duration: 0.25 }, '+=0.05')
+      .to(logoWrap, {
+        autoAlpha: 0, y: -10, scale: 0.95,
+        duration: 0.3, ease: 'power2.in'
+      }, '+=0.05')
       .to(overlay, {
         clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0 100%)',
         duration: 0.55
-      }, '-=0.1')
+      }, '-=0.15')
       .to(bar, { scaleX: 0, duration: 0.3, ease: 'power2.in' }, '-=0.3');
   }
 
@@ -174,7 +184,6 @@
     const href = a.getAttribute('href');
     if (!href) return;
     if (/^(https?:|mailto:|tel:|javascript:|#)/i.test(href)) return;
-    // Skip same-page anchors
     if (href.startsWith('#')) return;
 
     e.preventDefault();
@@ -193,8 +202,6 @@
       const { reduceMotion } = ctx.conditions;
 
       if (reduceMotion) {
-        // Skip all animations — just instant nav
-        // Still consume the sessionStorage flag so no overlay appears
         if (sessionStorage.getItem('phygo_pt_enter') === '1') {
           sessionStorage.removeItem('phygo_pt_enter');
         }
@@ -208,7 +215,6 @@
       }
 
       // Setup entrance + scroll reveals
-      // Wait for fonts/layout to settle
       requestAnimationFrame(() => {
         setTimeout(() => {
           entranceAnimation();
@@ -217,16 +223,11 @@
       });
 
       return () => {
-        gsap.killTweensOf([overlay, mark, bar, '.gsap-reveal', '.gsap-section', 'section', 'h1', '.hero-content > *']);
+        gsap.killTweensOf([overlay, logoWrap, bar, '.gsap-reveal', '.gsap-section', 'section', 'h1', '.hero-content > *']);
         if (typeof ScrollTrigger !== 'undefined') {
           ScrollTrigger.getAll().forEach(t => t.kill());
         }
       };
     }
   );
-
-  // Cleanup on unload (good practice for SPA-style nav handlers)
-  window.addEventListener('beforeunload', () => {
-    // No need to mm.revert() — page will be destroyed
-  });
 })();
