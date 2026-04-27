@@ -95,6 +95,99 @@
 .nav-link.active { color: #003723 !important; border-bottom: 2px solid #003723; padding-bottom: 4px; opacity: 1 !important; }
 .font-newsreader { font-family: 'Newsreader', serif; }
 .font-space-grotesk { font-family: 'Space Grotesk', sans-serif; }
+
+/* ===== Hero Home Cinematic v2 ===== */
+.hero-wrapper {
+  position: relative;
+  overflow: hidden;
+  min-height: 80vh;
+}
+.hero-video-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.hero-video-wrap video,
+.hero-video-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.05);
+}
+/* Vignette overlay */
+.hero-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(249, 249, 247, 0.5) 100%);
+}
+/* Content layer */
+.hero-content {
+  position: relative;
+  z-index: 10;
+}
+/* Split-text word styling */
+.hero-headline-word {
+  display: inline-block;
+  will-change: transform, opacity;
+  perspective: 600px;
+}
+/* Scroll indicator */
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  pointer-events: none;
+}
+.hero-scroll-indicator .scroll-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(26, 28, 27, 0.35);
+}
+.hero-scroll-indicator .scroll-arrow {
+  width: 1px;
+  height: 32px;
+  background: linear-gradient(to bottom, rgba(0, 55, 35, 0.4), transparent);
+  position: relative;
+}
+.hero-scroll-indicator .scroll-arrow::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-right: 1px solid rgba(0, 55, 35, 0.4);
+  border-bottom: 1px solid rgba(0, 55, 35, 0.4);
+  transform: translateX(-50%) rotate(45deg);
+}
+/* Static fallback (mobile/reduced-motion) */
+.hero-static .hero-fx-canvas,
+.hero-static .hero-scroll-indicator {
+  display: none !important;
+}
+.hero-static .hero-headline-word,
+.hero-static .hero-badge,
+.hero-static .hero-subtitle,
+.hero-static .hero-cta-wrap,
+.hero-static .hero-stat-item {
+  opacity: 1 !important;
+  transform: none !important;
+}
 </style>
 <link rel="canonical" href="https://phygo.com.br/"/>
 <meta property="og:title" content="Phygo Gestão de Ativos | Carteiras Administradas Personalizadas"/>
@@ -347,34 +440,34 @@ Agendar Conversa
 <a href="contato.html" class="mt-4 bg-[#003723] text-white px-10 py-4 font-['Space_Grotesk'] text-[11px] tracking-[0.2em] uppercase">Agendar Conversa</a>
 </div>
 <main class="relative pt-24 min-h-screen">
-<!-- Hero Section -->
-<div class="relative overflow-hidden min-h-[80vh]">
+<!-- Hero Section — Cinematic v2 -->
+<div class="hero-wrapper relative overflow-hidden min-h-[80vh]">
 <!-- Full-bleed Video Background -->
-<div class="absolute inset-0 z-0 pointer-events-none">
+<div class="hero-video-wrap absolute inset-0 z-0 pointer-events-none">
 <video autoplay muted loop playsinline class="w-full h-full object-cover">
 <source src="assets/hero-bg.mp4?v=2" type="video/mp4"/>
 <img alt="" class="w-full h-full object-cover" src="assets/marble-original.jpg"/ loading="lazy" decoding="async"/>
 </video>
-<div class="absolute inset-0 bg-[#f9f9f7]/25"></div>
+<div class="absolute inset-0 bg-[#f9f9f7]/20"></div>
 </div>
 <!-- Hero Content -->
-<div class="relative z-10 px-5 md:px-12 pt-20 pb-32 max-w-screen-2xl mx-auto">
+<div class="hero-content relative z-10 px-5 md:px-12 pt-20 pb-32 max-w-screen-2xl mx-auto">
 <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-start relative z-10">
 <div class="md:col-span-8">
-<div class="flex items-center gap-4 mb-8">
+<div class="hero-badge flex items-center gap-4 mb-8">
 <div class="inline-flex items-center gap-2 border border-on-surface/10 rounded-full px-4 py-2">
 <div class="w-2 h-2 rounded-full bg-[#003723] animate-pulse"></div>
 <span class="font-label text-[10px] tracking-[0.15em] text-on-surface/50 uppercase">Gestão de Ativos — São Paulo</span>
 </div>
 </div>
 <h1 class="font-headline text-[clamp(2rem,7vw,5rem)] leading-[0.95] tracking-tighter mb-12">
-                    Gestão Patrimonial <br/>
-<span class="italic font-light">e Preservação de Legado.</span>
+                    <span class="hero-headline-word">Gestão</span> <span class="hero-headline-word">Patrimonial</span> <br/>
+<span class="italic font-light"><span class="hero-headline-word">e</span> <span class="hero-headline-word">Preservação</span> <span class="hero-headline-word">de</span> <span class="hero-headline-word">Legado.</span></span>
 </h1>
-<p class="font-body text-on-surface/60 text-lg md:text-xl max-w-xl mb-12 leading-relaxed">
+<p class="hero-subtitle font-body text-on-surface/60 text-lg md:text-xl max-w-xl mb-12 leading-relaxed">
                     Carteiras 100% personalizadas. Zero taxa de administração. Remuneração exclusivamente sobre o lucro real do seu portfólio.
                 </p>
-<div class="flex flex-col sm:flex-row gap-8 items-start sm:items-center">
+<div class="hero-cta-wrap flex flex-col sm:flex-row gap-8 items-start sm:items-center">
 <a href="contato.html" class="bg-primary text-on-primary px-10 py-5 font-label text-[11px] tracking-[0.2em] uppercase transition-all duration-300 hover:translate-y-[-2px] hover:shadow-xl">
                         Agendar Conversa
                     </a>
@@ -386,17 +479,21 @@ Agendar Conversa
 </div>
 <!-- Statistics Sidebar -->
 <div class="md:col-span-4 flex flex-col gap-8 md:gap-8 md:p-16 md:pl-12 md:border-l border-outline-variant/15">
-<div>
+<div class="hero-stat-item">
 <div class="font-newsreader text-3xl md:text-6xl text-primary font-light tracking-tighter mb-2">R$ 100M+</div>
 <div class="font-label text-[11px] tracking-[0.15em] text-on-surface/40 uppercase">Sob Gestão Patrimonial</div>
 </div>
-<div>
+<div class="hero-stat-item">
 <div class="font-newsreader text-3xl md:text-6xl text-primary font-light tracking-tighter mb-2">140+</div>
 <div class="font-label text-[11px] tracking-[0.15em] text-on-surface/40 uppercase">Famílias Atendidas</div>
 </div>
 </div>
 </div>
-
+</div>
+<!-- Scroll Indicator -->
+<div class="hero-scroll-indicator">
+<span class="scroll-label">Scroll</span>
+<div class="scroll-arrow"></div>
 </div>
 </div>
 <!-- Content Cards Section - Curadoria Global -->
@@ -786,5 +883,8 @@ function loadGA() {
     }
 })();
 </script>
+
+<!-- Hero Home — Cinematic Enhancement -->
+<script src="assets/js/hero-home.js" defer></script>
 
 </body></html>

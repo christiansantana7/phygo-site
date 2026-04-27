@@ -109,6 +109,40 @@
 .nav-link.active { color: #003723 !important; border-bottom: 2px solid #003723; padding-bottom: 4px; opacity: 1 !important; }
 .font-newsreader { font-family: 'Newsreader', serif; }
 .font-space-grotesk { font-family: 'Space Grotesk', sans-serif; }
+
+/* ===== Solucoes Hero Cinematic v2 ===== */
+.solucoes-hero {
+  position: relative;
+  overflow: hidden;
+}
+.solucoes-hero-img {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+/* Flow particles canvas */
+.solucoes-flow-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+/* Split words */
+.solucoes-word {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+/* Static fallback */
+.solucoes-static .solucoes-flow-canvas {
+  display: none !important;
+}
+.solucoes-static .solucoes-word,
+.solucoes-static .solucoes-label,
+.solucoes-static .solucoes-desc {
+  opacity: 1 !important;
+  transform: none !important;
+}
 </style>
 <link rel="canonical" href="https://phygo.com.br/solucoes"/>
 <meta property="og:title" content="Soluções | Phygo — Alocação Global, Renda Fixa, Crypto e Planejamento Sucessório"/>
@@ -278,21 +312,21 @@ Agendar Conversa
 <a href="contato.html" class="mt-4 bg-[#003723] text-white px-10 py-4 font-['Space_Grotesk'] text-[11px] tracking-[0.2em] uppercase">Agendar Conversa</a>
 </div>
 <main class="pt-32">
-<!-- Hero Section -->
-<section class="px-5 md:px-5 md:px-12 py-12 md:py-24 md:py-20 md:py-40 max-w-[1920px] mx-auto border-b border-outline-variant/10">
-<div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-8 md:p-16 items-center">
+<!-- Hero Section — Cinematic v2 -->
+<section class="solucoes-hero px-5 md:px-5 md:px-12 py-12 md:py-24 md:py-20 md:py-40 max-w-[1920px] mx-auto border-b border-outline-variant/10">
+<div class="solucoes-content grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-8 md:p-16 items-center relative z-10">
 <div class="md:col-span-7">
-<span class="label-md text-primary tracking-[0.3em] font-bold mb-6 block uppercase">Nossos Serviços</span>
+<span class="solucoes-label label-md text-primary tracking-[0.3em] font-bold mb-6 block uppercase">Nossos Serviços</span>
 <h1 class="text-3xl md:text-8xl font-headline font-light text-on-background leading-tight">
-                        Soluções para seu <br/><em class="italic serif">Capital</em>
+                        <span class="solucoes-word">Soluções</span> <span class="solucoes-word">para</span> <span class="solucoes-word">seu</span> <br/><em class="italic serif"><span class="solucoes-word">Capital</span></em>
                     </h1>
-<p class="mt-12 text-xl text-on-surface-variant max-w-2xl leading-relaxed">
+<p class="solucoes-desc mt-12 text-xl text-on-surface-variant max-w-2xl leading-relaxed">
                         A preservação do legado exige uma abordagem estruturada. Desenvolvemos estratégias de Alocação Global e Curadoria Internacional sob medida para famílias que buscam a perpetuidade de seu capital.
                     </p>
 </div>
 <div class="md:col-span-5 relative">
 <div class="aspect-[4/5] bg-surface-container overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="Modern minimalist architectural interior with white marble textures, sharp shadows, and a singular emerald green design element" src="assets/emerald-texture.jpg"/ loading="lazy" decoding="async"/>
+<img class="solucoes-hero-img w-full h-full object-cover" data-alt="Modern minimalist architectural interior with white marble textures, sharp shadows, and a singular emerald green design element" src="assets/emerald-texture.jpg"/ loading="lazy" decoding="async"/>
 </div>
 <div class="absolute -bottom-8 -left-8 bg-primary text-white p-8 md:p-12 hidden md:block">
 <span class="block text-4xl font-headline italic">Legado</span>
@@ -716,5 +750,8 @@ function loadGA() {
     }
 })();
 </script>
+
+<!-- Hero Solucoes — Cinematic Enhancement -->
+<script src="assets/js/hero-solucoes.js" defer></script>
 
 </body></html>

@@ -96,6 +96,49 @@
 .nav-link.active { color: #003723 !important; border-bottom: 2px solid #003723; padding-bottom: 4px; opacity: 1 !important; }
 .font-newsreader { font-family: 'Newsreader', serif; }
 .font-space-grotesk { font-family: 'Space Grotesk', sans-serif; }
+
+/* ===== Metodologia Hero Cinematic v2 ===== */
+.metodo-hero {
+  position: relative;
+  overflow: hidden;
+}
+/* Ken Burns target */
+.ken-burns-target {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+/* Duotone overlay effect */
+.metodo-duotone {
+  filter: grayscale(100%) brightness(0.9);
+  transition: filter 1.2s ease;
+}
+.metodo-visual::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(0, 55, 35, 0.12) 0%, rgba(0, 80, 53, 0.06) 50%, transparent 100%);
+  mix-blend-mode: multiply;
+}
+/* Wireframe SVG */
+.metodo-wireframe line {
+  vector-effect: non-scaling-stroke;
+}
+/* Section reveal base state */
+.metodo-reveal {
+  opacity: 0;
+  transform: translateY(50px);
+}
+.metodo-static .metodo-reveal {
+  opacity: 1 !important;
+  transform: none !important;
+}
+/* Animated numbers */
+.metodo-number {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+}
 </style>
 <link rel="canonical" href="https://phygo.com.br/metodologia"/>
 <meta property="og:title" content="Metodologia | Phygo Gestão de Ativos — Performance Fee e Transparência"/>
@@ -265,8 +308,8 @@ Agendar Conversa
 <a href="contato.html" class="mt-4 bg-[#003723] text-white px-10 py-4 font-['Space_Grotesk'] text-[11px] tracking-[0.2em] uppercase">Agendar Conversa</a>
 </div>
 <main class="pt-32">
-<!-- Hero Section -->
-<section class="px-5 md:px-5 md:px-12 py-12 md:py-24 max-w-[1920px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-8 md:p-16 items-end">
+<!-- Hero Section — Cinematic v2 -->
+<section class="metodo-hero px-5 md:px-5 md:px-12 py-12 md:py-24 max-w-[1920px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-8 md:p-16 items-end">
 <div class="lg:col-span-8">
 <span class="label-md text-primary uppercase tracking-[0.3em] mb-6 block">Nossa Filosofia</span>
 <h1 class="text-4xl lg:text-9xl font-headline italic tracking-tighter leading-[0.9] mb-12">
@@ -288,10 +331,10 @@ Agendar Conversa
 </div>
 </div>
 </section>
-<!-- Visual Anchor: Marble Texture -->
-<section class="w-full h-[350px] md:h-[600px] relative overflow-hidden">
+<!-- Visual Anchor: Marble Texture — Cinematic v2 -->
+<section class="metodo-visual w-full h-[350px] md:h-[600px] relative overflow-hidden">
 <div class="absolute inset-0 bg-[#f4f4f2]"></div>
-<img class="w-full h-full object-cover mix-blend-multiply opacity-40" data-alt="abstract architectural close-up of white marble with deep grey veins and emerald green lighting accents creating a luxury textured feel" src="assets/marble-white.jpg"/ loading="lazy" decoding="async"/>
+<img class="ken-burns-target w-full h-full object-cover mix-blend-multiply opacity-40" data-alt="abstract architectural close-up of white marble with deep grey veins and emerald green lighting accents creating a luxury textured feel" src="assets/marble-white.jpg"/ loading="lazy" decoding="async"/>
 <div class="absolute inset-0 flex items-center justify-center">
 <div class="bg-surface-container-lowest/80 backdrop-blur-xl p-8 md:p-16 reveal-scale max-w-2xl sharp-edge border border-outline-variant/10">
 <h3 class="font-headline text-5xl italic leading-tight text-ink mb-6">"Onde o banco vê um produto, nós vemos uma arquitetura de preservação."</h3>
@@ -300,10 +343,10 @@ Agendar Conversa
 </div>
 </section>
 <!-- Radical Transparency Section -->
-<section class="py-16 md:py-32 px-5 md:px-12 bg-surface-container-low">
+<section class="metodo-reveal py-16 md:py-32 px-5 md:px-12 bg-surface-container-low">
 <div class="max-w-[1920px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24">
 <div>
-<span class="label-md text-primary tracking-[0.4em] mb-4 block">01 / PRINCÍPIO</span>
+<span class="label-md text-primary tracking-[0.4em] mb-4 block"><span class="metodo-number" data-target="1">01</span> / PRINCÍPIO</span>
 <h2 class="font-headline text-3xl md:text-6xl tracking-tight mb-12">Transparência <br/><span class="italic">Radical</span></h2>
 <div class="space-y-16">
 <div class="group">
@@ -360,9 +403,9 @@ Agendar Conversa
 </div>
 </section>
 <!-- Asset Architecture Section -->
-<section class="py-16 md:py-32 px-5 md:px-12 bg-surface">
+<section class="metodo-reveal py-16 md:py-32 px-5 md:px-12 bg-surface">
 <div class="max-w-[1920px] mx-auto text-center mb-24">
-<span class="label-md text-primary tracking-[0.4em] mb-4 block">02 / PROCESSO</span>
+<span class="label-md text-primary tracking-[0.4em] mb-4 block"><span class="metodo-number" data-target="2">02</span> / PROCESSO</span>
 <h2 class="font-headline text-3xl md:text-6xl tracking-tight">Arquitetura de <span class="italic">Ativos</span></h2>
 </div>
 <div class="max-w-[1920px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-1px bg-outline-variant/20 stagger-children">
@@ -390,10 +433,10 @@ Agendar Conversa
 </div>
 </section>
 <!-- Global Reach Section -->
-<section class="py-16 md:py-32 bg-on-background text-surface overflow-hidden">
+<section class="metodo-reveal py-16 md:py-32 bg-on-background text-surface overflow-hidden">
 <div class="max-w-[1920px] mx-auto px-5 md:px-12 flex flex-col lg:flex-row items-center gap-24">
 <div class="lg:w-1/2 reveal-left">
-<span class="label-md text-primary-fixed tracking-[0.4em] mb-4 block">03 / HORIZONTE</span>
+<span class="label-md text-primary-fixed tracking-[0.4em] mb-4 block"><span class="metodo-number" data-target="3">03</span> / HORIZONTE</span>
 <h2 class="font-headline text-4xl md:text-7xl tracking-tighter leading-[0.8] mb-12">Global <br/><span class="italic">Reach</span></h2>
 <p class="body-md text-surface/60 leading-loose max-w-lg mb-12">
                         O Brasil representa menos de 1% do mercado de capitais global. A PHYGO arquitetou uma estrutura offshore que permite aos nossos clientes investir nos maiores hubs financeiros do mundo: New York, London, e Zurich.
@@ -411,7 +454,7 @@ Agendar Conversa
 </div>
 <div class="lg:w-1/2 relative">
 <div class="w-full aspect-square bg-[#222] overflow-hidden grayscale">
-<img class="w-full h-full object-cover opacity-60" data-alt="dramatic wide angle of a futuristic minimalist trading room with massive displays showing global maps and gold numeric data" src="assets/city-skyline.jpg"/ loading="lazy" decoding="async"/>
+<img class="metodo-duotone w-full h-full object-cover opacity-60" data-alt="dramatic wide angle of a futuristic minimalist trading room with massive displays showing global maps and gold numeric data" src="assets/city-skyline.jpg"/ loading="lazy" decoding="async"/>
 </div>
 <div class="absolute -top-6 -left-6 md:-top-12 md:-left-12 bg-primary px-10 py-12 sharp-edge">
 <p class="label-md text-white tracking-[0.3em] uppercase">Jurisdições Ativas</p>
@@ -712,5 +755,8 @@ function loadGA() {
     }
 })();
 </script>
+
+<!-- Hero Metodologia — Cinematic Enhancement -->
+<script src="assets/js/hero-metodologia.js" defer></script>
 
 </body></html>
