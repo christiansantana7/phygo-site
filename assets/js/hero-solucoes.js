@@ -7,9 +7,8 @@
   'use strict';
 
   /* ---------- Feature detection ---------- */
-  const isMobile = window.matchMedia('(max-width: 768px)').matches ||
-    (navigator.deviceMemory && navigator.deviceMemory < 4) ||
-    ('ontouchstart' in window && window.innerWidth < 1024);
+  // Only TRUE mobile — narrow viewport (smartphone)
+  const isMobile = window.matchMedia('(max-width: 640px)').matches;
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (isMobile || prefersReduced) {
