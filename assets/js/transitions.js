@@ -77,7 +77,7 @@
 
     // ─── Reveal entrance ─────────────────────────────────────────────────
     function entranceAnimation() {
-      const reveals = document.querySelectorAll('.gsap-reveal, h1, .hero-content > *');
+      const reveals = document.querySelectorAll('.gsap-reveal');
       if (reveals.length === 0) return;
       gsap.set(reveals, { autoAlpha: 0, y: 24 });
       gsap.to(reveals, {
@@ -92,7 +92,7 @@
     function setupScrollReveals() {
       if (typeof ScrollTrigger === 'undefined') return;
       gsap.registerPlugin(ScrollTrigger);
-      const sections = document.querySelectorAll('.gsap-section, section:not(.no-reveal)');
+      const sections = document.querySelectorAll('.gsap-section, section:not(.no-reveal):not(.hero-wrapper):not(.metodo-hero):not(.solucoes-hero)');
       sections.forEach((sec) => {
         const items = sec.querySelectorAll(':scope > div, :scope > h2, :scope > h3, :scope > p, :scope > .card, :scope > .reveal-item');
         if (items.length === 0) {
